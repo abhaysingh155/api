@@ -1,0 +1,126 @@
+{%  extends 'api/main.html' %}
+
+{% block content %}
+
+		<br>
+    <div class="container-fluid">   
+		<div class="row">
+			<div class="col-md ">
+				<div class="card card-body">
+					<h1 style="text-align: center; color: green">Start Your Learning !</h1>
+				</div>
+				<div class="row" >
+				<div class="card card-body col-2 my-3">
+					<table class="table">
+						<tr>
+							<th><a href="{% url 'trial_classes' request.user %}">Schedule a Trial class</a></th>							
+						</tr>
+						<tr>
+							<th><a href="{% url 'upcoming_classes' request.user %}">Upcoming Live Classes</a></th>							
+						</tr>
+						<tr>
+							<th><a href="{% url 'practice_questions' request.user %}">Practice Questions</a></th>							
+						</tr>
+
+						
+					</table>
+				</div>
+				
+                {% if schedule_trial %}
+				<div class="card card-body col-10 my-3">
+                    <div style="margin: auto;width: 40%;font-size: 20px">
+					<form method="post" enctype="multipart/form-data">
+					    {% csrf_token %}
+					    <div>
+                         <label style="width: 25%;"> Date:</label>
+                         {{ form.date }}
+                         </div>  
+                         <div>
+                         <label style="width: 25%;"> Time:</label>
+                         {{ form.time }}
+                         </div>                       
+					    <button type="submit" style="float:right;margin-right: 7%;margin-top: 3%;padding: 3% 4%; outline: none;border:none;border-radius: 10px;background-color: #00cc66; font-weight: bold;">Schedule</button>
+					</form>
+                    </div> 
+				</div>
+                {% endif %}
+
+				{% if information %}
+					<div class="card card-body col-10 my-3">
+	                    <div style="margin: auto;">
+	                    	<div style="border: solid 1px; padding: 10px 15px; margin: 5px; border-radius: 10px;background: linear-gradient(to bottom, #00ccff 0%, #cc99ff 100%); color: white;  ">
+
+	                    		<h5>{{information}}</h5>
+	                    	
+	                    	</div> 
+	                    </div>
+	                    <h6 style="margin-left: 70%;">***Admin will allocate class to you soon....!!!</h6> 
+					</div>
+				{% endif %}
+
+                {% if get_class %}
+                	<div class="row col-10">
+	                {% for class in get_class %}
+						  <div class="col-2 col-md-4 col-lg-3 pt-5 ml-3">
+						    <div class="card">
+						      <div class="card-body">
+						        <h5 class="card-title">{{class.class_name}}</h5>
+						        <a href="#" class="btn btn-primary">ON-> {{class.on_date}}</a>
+						      </div>
+						    </div>
+						  </div>
+					{% endfor %}
+					</div>	  
+				{% endif %}
+
+                {% if name %}
+				<div class="card card-body col-10 my-3">
+                    <div style="margin: auto;">
+                    	{% for traning in name %}
+                    		<div style="border: solid 1px; padding: 10px 15px; margin: 5px; border-radius: 10px;background: linear-gradient(to bottom, #00ccff 0%, #cc99ff 100%); color: white;  ">
+                    		
+                    		    <h5>You have Trail class on {{traning.date}} at {{traning.time}} </h5>
+                    		
+                    		</div> 
+                    	{%endfor%}
+                    </div> 
+				</div>
+                {% endif %}
+
+				{% if info_question %}
+					<div class="card card-body col-10 my-3">
+	                    <div style="margin: auto;">
+	                    	<div style="border: solid 1px; padding: 10px 15px; margin: 5px; border-radius: 10px;background: linear-gradient(to bottom, #00ccff 0%, #cc99ff 100%); color: white;  ">
+
+	                    		<h5>{{info_question}}</h5>
+	                    	
+	                    	</div> 
+	                    </div>
+	                    <h6 style="margin-left: 70%;">***Admin will allocate questions to you soon....!!!</h6> 
+					</div>
+				{% endif %}
+
+                {% if get_question %} 
+				<div class="card card-body col-10 my-3">
+                    <div style="margin: auto;">
+                    	{% for ques in get_question %}
+                    		<div style="border: solid 1px; padding: 10px 15px; margin: 5px; border-radius: 10px;background: linear-gradient(to bottom, #00ccff 0%, #cc99ff 100%); color: white;  ">
+                    		
+                    		    <h5>Q. {{ques.which_question}} </h5>
+                    		
+                    		</div> 
+                    	{%endfor%}
+                    </div> 
+				</div>
+                {% endif %}
+
+
+            </div>	
+
+            </div>
+
+			</div>
+			
+		</div>
+    </div> 
+{% endblock content %}
