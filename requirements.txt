@@ -22,7 +22,7 @@ gunicorn==20.0.4
 idna==2.9
 kombu==4.6.8
 Markdown==3.2.2
-numpy==1.17.4
+numpy==1.22.0
 Pillow==7.1.1
 psycopg2==2.8.5
 pycountry==19.8.18
